@@ -13,17 +13,16 @@ export function itemIsSaving(){
     };
 }
 
-export function itemIsEditing(id){
+export function itemIsEditing(){
     return {
         type: actionTypes.EDIT_REQUEST,
-        id
+        
     };
 }
 
-export function toggleEditable(id){
+export function toggleEditable(){
     return {
         type: actionTypes.TOGGLE_EDITABLE,
-        id
     }
 }
 
@@ -53,9 +52,10 @@ export function submitMenuItemFailure(error){
     };
 }
 
-export function editMenuItemSuccess(menu_item){
+export function editMenuItemSuccess(idx,menu_item){
     return {
         type: actionTypes.EDIT_SUCCESS,
+        idx,
         menu_item
     }
 }

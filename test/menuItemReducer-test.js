@@ -174,7 +174,7 @@ describe('menuItem reducer', () => {
 
     it('should give the new state if edit success', () => {
         let mockState = Immutable.fromJS({
-            $$menu_items: ['a'],
+            $$menu_items: ['a','b','c'],
             isFetching: false,
             isSaving: false,
             isEditing: true,
@@ -184,20 +184,40 @@ describe('menuItem reducer', () => {
             editError: null
         })
         expect(
-            menuItemsReducer(undefined, {
+            menuItemsReducer(mockState, {
                 type: types.EDIT_SUCCESS,
-                menu_item: 'a'
+                id: 0,
+                menu_item: 'b'
+            })
+        ).toEqual(
+            Immutable.fromJS({
+                $$menu_items: ['b','b','c'],
+                isFetching: false,
+                isSaving: false,
+                isEditing: false,
+                isEditable: false,
+                fetchError: null,
+                submitError: null,
+                editError: null
+            })
+        )
+    })
+    it('should give me the error if failed to edit', () => {
+        expect(
+            menuItemsReducer(undefined, {
+                type: types.EDIT_FAILURE,
+                error: "can't edit shit"
             })
         ).toEqual(
             Immutable.fromJS({
                 $$menu_items: [],
                 isFetching: false,
                 isSaving: false,
-                isEditing: true,
-                isEditable: true,
+                isEditing: false,
+                isEditable: false,
                 fetchError: null,
                 submitError: null,
-                editError: null
+                editError: "can't edit shit"
             })
         )
     })
