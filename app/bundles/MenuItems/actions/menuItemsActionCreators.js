@@ -77,3 +77,27 @@ export function fetchMenuItems(){
         );
     }
 }
+
+export function submitMenuItem(menu_item){
+    return dispatch => {
+        dispatch(itemIsSaving());
+        return (
+            requestsManager
+                .submitEntity(menu_item)
+                .then(res => dispatch(submitMenuItemSuccess(res.data)))
+                .catch(res => dispatch(submitMenuItemFailure(res.data)))
+        )
+    }
+}
+
+export function editMenuItem(id, menu_item){
+    return dispatch => {
+        dispatch(itemIsEditing());
+        return (
+            requestsManager
+                .editEntity(id, menu_item)
+                .then(res => dispatch(editMenuItemSuccess(res.data.id, res.data.menu_item)))
+                .catch(res => dispatch(editMenuItemFailure(res.data)))
+        )
+    }
+}

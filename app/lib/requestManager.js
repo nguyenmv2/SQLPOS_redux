@@ -1,8 +1,8 @@
 import request from 'axios';
 import metaTagsManager from './metaTagsManager';
 
-var API_URL = 'http://www.test.com/menu_items.json';
-
+var API_URL = 'menu_items.json';
+var URL = 'menu_items/'
 export default {
 
 
@@ -37,4 +37,20 @@ export default {
         });
     },
 
+    /**
+     * Edit existing entiy to server with AJAX call,
+     * @param {Number} id of the entity
+     * @param {Object} new entity
+     *
+     * @returns {Promise} - Result of the call
+     */
+    editEntity(id, entity){
+        let entity_URL = URL + id +'.json'
+        return request({
+            method: 'PUT',
+            url: entity_URL,
+            responseType: 'json',
+            data: entity
+        });
+    }
 };
